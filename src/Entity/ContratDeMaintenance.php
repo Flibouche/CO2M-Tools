@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\ContratDeMaintenanceRepository;
+use App\Enum\TarificationContrat;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ContratDeMaintenanceRepository;
 
 #[ORM\Entity(repositoryClass: ContratDeMaintenanceRepository::class)]
 class ContratDeMaintenance
@@ -20,8 +21,8 @@ class ContratDeMaintenance
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateFin = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $tarification = null;
+    #[ORM\Column(type: 'string', enumType: TarificationContrat::class)]
+    private ?TarificationContrat $tarification = null;
 
     #[ORM\Column]
     private ?float $tarif = null;
@@ -58,16 +59,21 @@ class ContratDeMaintenance
         return $this;
     }
 
-    public function getTarification(): ?string
+    public function getTarification(): ?TarificationContrat
     {
         return $this->tarification;
     }
 
-    public function setTarification(string $tarification): static
+    public function setTarification(TarificationContrat $tarification): self
     {
         $this->tarification = $tarification;
 
         return $this;
+    }
+
+    public function getTarificationAsString(): ?string
+    {
+        return $this->tarification->value;
     }
 
     public function getTarif(): ?float

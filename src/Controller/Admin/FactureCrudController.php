@@ -4,9 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Facture;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class FactureCrudController extends AbstractCrudController
 {
@@ -15,14 +16,15 @@ class FactureCrudController extends AbstractCrudController
         return Facture::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')->hideOnForm(),
+            AssociationField::new('client'),
+            DateField::new('dateFacturation'),
+            BooleanField::new('genere'),
+            BooleanField::new('paye'),
+            DateField::new('dateEnvoi'),
         ];
     }
-    */
 }
