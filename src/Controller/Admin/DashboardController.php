@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Client;
-use App\Entity\ContratDeMaintenance;
+use App\Entity\ContratDeMaintenance as Contrat;
 use App\Entity\Facture;
 use App\Entity\Relance;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,10 +40,10 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Liste des clients', 'fas fa-eye', Client::class),
         ]);
 
-        yield MenuItem::section('Contrats');
+        yield MenuItem::section('Contrats de maintenance');
         yield MenuItem::subMenu('Actions', 'fas fa-bars')->setSubItems([
-            MenuItem::linkToCrud('Ajouter un contrat', 'fas fa-plus', ContratDeMaintenance::class)->setAction(Crud::PAGE_NEW),
-            MenuItem::linkToCrud('Liste des contrats', 'fas fa-eye', ContratDeMaintenance::class),
+            MenuItem::linkToCrud('Ajouter un contrat', 'fas fa-plus', Contrat::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Liste des contrats', 'fas fa-eye', Contrat::class),
         ]);
 
         yield MenuItem::section('Factures');
