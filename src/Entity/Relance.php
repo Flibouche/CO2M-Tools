@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\RelanceRepository;
+use App\Enum\TypeRelance;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\RelanceRepository;
 
 #[ORM\Entity(repositoryClass: RelanceRepository::class)]
 class Relance
@@ -19,6 +20,12 @@ class Relance
 
     #[ORM\ManyToOne(inversedBy: 'relances')]
     private ?Facture $facture = null;
+
+    #[ORM\Column(type: 'string', enumType: TypeRelance::class)]
+    private ?TypeRelance $typeRelance = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $message = null;
 
     public function getId(): ?int
     {
@@ -45,6 +52,35 @@ class Relance
     public function setFacture(?Facture $facture): static
     {
         $this->facture = $facture;
+
+        return $this;
+    }
+
+    public function getTypeRelance(): ?string
+    {
+        return $this->typeRelance;
+    }
+
+    public function setTypeRelance(string $typeRelance): static
+    {
+        $this->typeRelance = $typeRelance;
+
+        return $this;
+    }
+
+    public function getRelanceAsString(): ?string
+    {
+        return $this->typeRelance->value;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): static
+    {
+        $this->message = $message;
 
         return $this;
     }

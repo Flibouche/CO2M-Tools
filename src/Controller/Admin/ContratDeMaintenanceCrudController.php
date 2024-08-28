@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 
 class ContratDeMaintenanceCrudController extends AbstractCrudController
 {
@@ -23,7 +24,8 @@ class ContratDeMaintenanceCrudController extends AbstractCrudController
             AssociationField::new('client'),
             DateField::new('dateDebut'),
             DateField::new('dateFin'),
-            ChoiceField::new('tarification')
+            ChoiceField::new('tarification'),
+            MoneyField::new('tarif')->setCurrency('EUR'),
         ];
     }
 }
