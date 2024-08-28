@@ -28,7 +28,8 @@ class ContratDeMaintenance
     private ?float $tarif = null;
 
     #[ORM\ManyToOne(inversedBy: 'contratDeMaintenances')]
-    private ?Client $client = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private Client $client;
 
     public function getId(): ?int
     {

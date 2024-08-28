@@ -29,7 +29,8 @@ class Facture
     private ?\DateTimeInterface $dateEnvoi = null;
 
     #[ORM\ManyToOne(inversedBy: 'factures')]
-    private ?Client $client = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private Client $client;
 
     /**
      * @var Collection<int, Relance>

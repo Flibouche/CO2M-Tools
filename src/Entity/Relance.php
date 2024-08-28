@@ -19,7 +19,8 @@ class Relance
     private ?\DateTimeInterface $dateRelance = null;
 
     #[ORM\ManyToOne(inversedBy: 'relances')]
-    private ?Facture $facture = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private Facture $facture;
 
     #[ORM\Column(type: 'string', enumType: TypeRelance::class)]
     private ?TypeRelance $typeRelance = null;
@@ -56,12 +57,12 @@ class Relance
         return $this;
     }
 
-    public function getTypeRelance(): ?string
+    public function getTypeRelance(): ?TypeRelance
     {
         return $this->typeRelance;
     }
 
-    public function setTypeRelance(string $typeRelance): static
+    public function setTypeRelance(TypeRelance $typeRelance): self
     {
         $this->typeRelance = $typeRelance;
 
