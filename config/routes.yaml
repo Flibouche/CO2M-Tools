@@ -1,7 +1,3 @@
-index:
-    path: /
-    controller: App\Controller\SecurityController::login
-
 controllers:
     resource:
         path: ../src/Controller/
