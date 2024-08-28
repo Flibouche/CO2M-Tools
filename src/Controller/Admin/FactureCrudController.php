@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
@@ -27,7 +28,7 @@ class FactureCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
+        $commonFields = [
             IdField::new('id')->hideOnForm(),
             AssociationField::new('client'),
             DateField::new('dateFacturation'),
@@ -35,5 +36,17 @@ class FactureCrudController extends AbstractCrudController
             BooleanField::new('paye'),
             DateField::new('dateEnvoi'),
         ];
+
+        if ($pageName === Crud::PAGE_DETAIL) {
+            return array_merge($commonFields, [
+                CollectionField::new('relances')
+                    ->setEntryIsComplex(true)
+                    ->onlyOnDetail()
+                    ->setLabel('Relances')
+                    ->setTemplatePath('admin/relances_list.html.twig')
+            ]);
+        }
+
+        return $commonFields;
     }
 }

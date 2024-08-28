@@ -1,0 +1,20 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for relance in field.value %}
+        <tr>
+            <td>{{ relance.id }}</td>
+            <td>{{ relance.dateRelance|date('d/m/Y') }}</td>
+            <td>{{ relance.message }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script src="js/tables.js"></script>
