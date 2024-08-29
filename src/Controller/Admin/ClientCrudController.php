@@ -30,6 +30,14 @@ class ClientCrudController extends AbstractCrudController
         return Client::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setPageTitle('index', '%entity_label_plural% listing')
+            ->setPageTitle('detail', fn(Client $client) => (string) $client)
+            ->setPageTitle('edit', fn(Client $client) => 'Edit ' . (string) $client);
+    }
+
     public function configureActions(Actions $actions): Actions
     {
         return $actions
