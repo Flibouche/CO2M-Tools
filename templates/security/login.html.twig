@@ -3,24 +3,26 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="login form">
-        <header>Log in</header>
-        <form method="post">
-            {# Email #}
-            <input type="email" name="_username" id="username" placeholder="Email adress" required autofocus>
-            {# Password #}
-            <input type="password" name="_password" id="password" placeholder="Password" required>
-            {# CSRF #}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-            {# Remember Me #}
-            <div class="checkbox-wrapper">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
-            </div>
-            {# Log in #}
-            <input type="submit" class="button" value="Log in">
-        </form>
+<section id="login">
+    <div class="container">
+        <div class="login form">
+            <header>Log in</header>
+            <form method="post">
+                {# Email #}
+                <input type="email" name="_username" id="username" placeholder="Email adress" required autofocus>
+                {# Password #}
+                <input type="password" name="_password" id="password" placeholder="Password" required>
+                {# CSRF #}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                {# Remember Me #}
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" name="_remember_me" id="_remember_me">
+                    <label for="_remember_me">Remember me</label>
+                </div>
+                {# Log in #}
+                <input type="submit" class="button" value="Log in">
+            </form>
+        </div>
     </div>
-</div>
+</section>
 {% endblock %}

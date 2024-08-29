@@ -1,4 +1,5 @@
-<table class="table table-striped">
+{% if ea.crud.currentAction == 'detail' %}
+<table class="table datagrid">
     <thead>
         <tr>
             <th>ID</th>
@@ -10,7 +11,12 @@
     </thead>
     <tbody>
         {% for contrat in field.value %}
-        <tr>
+        {% set url = ea_url()
+        .setController('App\\Controller\\Admin\\ContratCrudController')
+        .setAction('detail')
+        .setEntityId(contrat.id) %}
+        {% set id = contrat.id %}
+        <tr data-href="{{url}}">
             <td>{{ contrat.id }}</td>
             <td>{{ contrat.dateDebut|date('d/m/Y') }}</td>
             <td>{{ contrat.dateFin|date('d/m/Y') }}</td>
@@ -20,3 +26,6 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
+
+<script src="js/tables.js"></script>

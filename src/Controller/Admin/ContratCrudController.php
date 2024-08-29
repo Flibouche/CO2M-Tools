@@ -15,15 +15,18 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 #[IsGranted('ROLE_ADMIN')]
 class ContratCrudController extends AbstractCrudController
 {
     private AdminContextProvider $adminContextProvider;
+    private AdminUrlGenerator $adminUrlGenerator;
 
-    public function __construct(AdminContextProvider $adminContextProvider)
+    public function __construct(AdminContextProvider $adminContextProvider, AdminUrlGenerator $adminUrlGenerator)
     {
         $this->adminContextProvider = $adminContextProvider;
+        $this->adminUrlGenerator = $adminUrlGenerator;
     }
 
     public static function getEntityFqcn(): string

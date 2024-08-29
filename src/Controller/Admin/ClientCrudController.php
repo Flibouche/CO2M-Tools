@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -61,11 +62,11 @@ class ClientCrudController extends AbstractCrudController
             $client = $context ? $context->getEntity()->getInstance() : null;
 
             if ($client && $client->getFactures()->count() > 0) {
-                $commonFields[] = CollectionField::new('factures')
-                    ->setEntryIsComplex(true)
-                    ->onlyOnDetail()
-                    ->setLabel('Factures')
-                    ->setTemplatePath('admin/factures_list.html.twig');
+                // $commonFields[] = CollectionField::new('factures')
+                //     ->setEntryIsComplex(true)
+                //     ->onlyOnDetail()
+                //     ->setLabel('Factures')
+                //     ->setTemplatePath('admin/factures_list.html.twig');
             }
 
             if ($client && $client->getContrats()->count() > 0) {
@@ -73,10 +74,20 @@ class ClientCrudController extends AbstractCrudController
                     ->setEntryIsComplex(true)
                     ->onlyOnDetail()
                     ->setLabel('Contrats')
-                    ->setTemplatePath('admin/contrats_list.html.twig');
+                    ->setTemplatePath('admin/contrats_list.html.twig')
+                    ->addCssClass('field-collection');
             }
         }
 
         return $commonFields;
+    }
+
+    public function configureAssets(Assets $assets): Assets
+    {
+        // return parent::configureAssets($assets)
+        //     ->addCssFile('styles/app.css');
+
+        return $assets
+            ->addCssFile('styles/app.css');
     }
 }
