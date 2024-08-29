@@ -60,7 +60,13 @@ class ClientCrudController extends AbstractCrudController
                     ->setTemplatePath('admin/factures_list.html.twig');
             }
 
-            // if ($client && $client->getContrats)
+            if ($client && $client->getContrats()->count() > 0) {
+                $commonFields[] = CollectionField::new('contrats')
+                    ->setEntryIsComplex(true)
+                    ->onlyOnDetail()
+                    ->setLabel('Contrats')
+                    ->setTemplatePath('admin/contrats_list.html.twig');
+            }
         }
 
         return $commonFields;

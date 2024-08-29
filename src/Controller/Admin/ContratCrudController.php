@@ -45,7 +45,7 @@ class ContratCrudController extends AbstractCrudController
             DateField::new('dateDebut'),
             DateField::new('dateFin'),
             ChoiceField::new('tarification'),
-            MoneyField::new('tarif')->setCurrency('EUR'),
+            MoneyField::new('tarif')->setCurrency('EUR')->setStoredAsCents(false),
         ];
 
         return $commonFields;
