@@ -62,11 +62,11 @@ class ClientCrudController extends AbstractCrudController
             $client = $context ? $context->getEntity()->getInstance() : null;
 
             if ($client && $client->getFactures()->count() > 0) {
-                // $commonFields[] = CollectionField::new('factures')
-                //     ->setEntryIsComplex(true)
-                //     ->onlyOnDetail()
-                //     ->setLabel('Factures')
-                //     ->setTemplatePath('admin/factures_list.html.twig');
+                $commonFields[] = CollectionField::new('factures')
+                    ->setEntryIsComplex(true)
+                    ->onlyOnDetail()
+                    ->setLabel('Factures')
+                    ->setTemplatePath('admin/factures_list.html.twig');
             }
 
             if ($client && $client->getContrats()->count() > 0) {
@@ -74,8 +74,7 @@ class ClientCrudController extends AbstractCrudController
                     ->setEntryIsComplex(true)
                     ->onlyOnDetail()
                     ->setLabel('Contrats')
-                    ->setTemplatePath('admin/contrats_list.html.twig')
-                    ->addCssClass('field-collection');
+                    ->setTemplatePath('admin/contrats_list.html.twig');
             }
         }
 
@@ -84,10 +83,7 @@ class ClientCrudController extends AbstractCrudController
 
     public function configureAssets(Assets $assets): Assets
     {
-        // return parent::configureAssets($assets)
-        //     ->addCssFile('styles/app.css');
-
-        return $assets
+        return parent::configureAssets($assets)
             ->addCssFile('styles/app.css');
     }
 }

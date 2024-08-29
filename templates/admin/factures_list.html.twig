@@ -1,4 +1,5 @@
-<table class="table table-striped">
+{% if ea.crud.currentAction == 'detail' %}
+<table class="table datagrid table-link">
     <thead>
         <tr>
             <th>ID</th>
@@ -10,13 +11,17 @@
     </thead>
     <tbody>
         {% for facture in field.value %}
-        <tr>
+        {% set url = ea_url().setController('App\\Controller\\Admin\\FactureCrudController').setAction('detail').setEntityId(facture.id) %}
+        <tr data-href="{{ url }}">
             <td>{{ facture.id }}</td>
             <td>{{ facture.dateFacturation|date('d/m/Y') }}</td>
-            <td>{{ facture.genere ? 'Oui' : 'Non'}}</td>
-            <td>{{ facture.paye ? 'Oui' : 'Non'}}</td>
+            <td>{{ facture.genere ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>'}}</td>
+            <td>{{ facture.paye ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>'}}</td>
             <td>{{ facture.dateEnvoi|date('d/m/Y') }}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
+
+<script src="js/tables.js"></script>

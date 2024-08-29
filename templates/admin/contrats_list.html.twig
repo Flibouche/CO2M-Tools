@@ -11,11 +11,7 @@
     </thead>
     <tbody>
         {% for contrat in field.value %}
-        {% set url = ea_url()
-        .setController('App\\Controller\\Admin\\ContratCrudController')
-        .setAction('detail')
-        .setEntityId(contrat.id) %}
-        {% set id = contrat.id %}
+        {% set url = ea_url().setController('App\\Controller\\Admin\\ContratCrudController').setAction('detail').setEntityId(contrat.id) %}
         <tr data-href="{{ url }}">
             <td>{{ contrat.id }}</td>
             <td>{{ contrat.dateDebut|date('d/m/Y') }}</td>
