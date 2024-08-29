@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Client;
-use App\Entity\ContratDeMaintenance as Contrat;
+use App\Entity\Contrat;
 use App\Entity\Facture;
 use App\Entity\Relance;
 use Symfony\Component\HttpFoundation\Response;

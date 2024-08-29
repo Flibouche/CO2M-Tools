@@ -5,10 +5,10 @@ namespace App\Entity;
 use App\Enum\TarificationContrat;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\ContratDeMaintenanceRepository;
+use App\Repository\ContratRepository;
 
-#[ORM\Entity(repositoryClass: ContratDeMaintenanceRepository::class)]
-class ContratDeMaintenance
+#[ORM\Entity(repositoryClass: ContratRepository::class)]
+class Contrat
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,7 +27,7 @@ class ContratDeMaintenance
     #[ORM\Column]
     private ?float $tarif = null;
 
-    #[ORM\ManyToOne(inversedBy: 'contratDeMaintenances')]
+    #[ORM\ManyToOne(inversedBy: 'contrats')]
     #[ORM\JoinColumn(nullable: false)]
     private Client $client;
 

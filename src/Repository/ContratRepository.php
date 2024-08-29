@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\ContratDeMaintenance;
+use App\Entity\Contrat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ContratDeMaintenance>
+ * @extends ServiceEntityRepository<Contrat>
  */
-class ContratDeMaintenanceRepository extends ServiceEntityRepository
+class ContratRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ContratDeMaintenance::class);
+        parent::__construct($registry, Contrat::class);
     }
 
     //    /**
-    //     * @return ContratDeMaintenance[] Returns an array of ContratDeMaintenance objects
+    //     * @return Contrat[] Returns an array of Contrat objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class ContratDeMaintenanceRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?ContratDeMaintenance
+    //    public function findOneBySomeField($value): ?Contrat
     //    {
     //        return $this->createQueryBuilder('c')
     //            ->andWhere('c.exampleField = :val')

@@ -40,15 +40,15 @@ class Client
     private Collection $factures;
 
     /**
-     * @var Collection<int, ContratDeMaintenance>
+     * @var Collection<int, Contrat>
      */
-    #[ORM\OneToMany(targetEntity: ContratDeMaintenance::class, mappedBy: 'client')]
-    private Collection $contratDeMaintenances;
+    #[ORM\OneToMany(targetEntity: Contrat::class, mappedBy: 'client')]
+    private Collection $contrats;
 
     public function __construct()
     {
         $this->factures = new ArrayCollection();
-        $this->contratDeMaintenances = new ArrayCollection();
+        $this->contrats = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,29 +159,29 @@ class Client
     }
 
     /**
-     * @return Collection<int, ContratDeMaintenance>
+     * @return Collection<int, Contrat>
      */
-    public function getContratDeMaintenances(): Collection
+    public function getContrats(): Collection
     {
-        return $this->contratDeMaintenances;
+        return $this->contrats;
     }
 
-    public function addContratDeMaintenance(ContratDeMaintenance $contratDeMaintenance): static
+    public function addContrat(Contrat $contrat): static
     {
-        if (!$this->contratDeMaintenances->contains($contratDeMaintenance)) {
-            $this->contratDeMaintenances->add($contratDeMaintenance);
-            $contratDeMaintenance->setClient($this);
+        if (!$this->contrats->contains($contrat)) {
+            $this->contrats->add($contrat);
+            $contrat->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeContratDeMaintenance(ContratDeMaintenance $contratDeMaintenance): static
+    public function removeContrat(Contrat $contrat): static
     {
-        if ($this->contratDeMaintenances->removeElement($contratDeMaintenance)) {
+        if ($this->contrats->removeElement($contrat)) {
             // set the owning side to null (unless already changed)
-            if ($contratDeMaintenance->getClient() === $this) {
-                $contratDeMaintenance->setClient(null);
+            if ($contrat->getClient() === $this) {
+                $contrat->setClient(null);
             }
         }
 
