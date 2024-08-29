@@ -1,5 +1,5 @@
 {% if ea.crud.currentAction == 'detail' %}
-<table class="table datagrid">
+<table class="table datagrid table-link">
     <thead>
         <tr>
             <th>ID</th>
@@ -16,7 +16,7 @@
         .setAction('detail')
         .setEntityId(contrat.id) %}
         {% set id = contrat.id %}
-        <tr data-href="{{url}}">
+        <tr data-href="{{ url }}">
             <td>{{ contrat.id }}</td>
             <td>{{ contrat.dateDebut|date('d/m/Y') }}</td>
             <td>{{ contrat.dateFin|date('d/m/Y') }}</td>
