@@ -11,12 +11,21 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
 #[IsGranted('ROLE_ADMIN')]
 class ContratDeMaintenanceCrudController extends AbstractCrudController
 {
+    private AdminContextProvider $adminContextProvider;
+
+    public function __construct(AdminContextProvider $adminContextProvider)
+    {
+        $this->adminContextProvider = $adminContextProvider;
+    }
+
     public static function getEntityFqcn(): string
     {
         return ContratDeMaintenance::class;
@@ -30,7 +39,7 @@ class ContratDeMaintenanceCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        return [
+        $commonFields = [
             IdField::new('id')->hideOnForm(),
             AssociationField::new('client'),
             DateField::new('dateDebut'),
@@ -38,5 +47,7 @@ class ContratDeMaintenanceCrudController extends AbstractCrudController
             ChoiceField::new('tarification'),
             MoneyField::new('tarif')->setCurrency('EUR'),
         ];
+
+        return $commonFields;
     }
 }

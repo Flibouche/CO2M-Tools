@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date Facturation</th>
+            <th>Généré</th>
+            <th>Payé</th>
+            <th>Date Envoi</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for facture in field.value %}
+        <tr>
+            <td>{{ facture.id }}</td>
+            <td>{{ facture.dateFacturation|date('d/m/Y') }}</td>
+            <td>{{ facture.genere ? 'Oui' : 'Non'}}</td>
+            <td>{{ facture.paye ? 'Oui' : 'Non'}}</td>
+            <td>{{ facture.dateEnvoi|date('d/m/Y') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

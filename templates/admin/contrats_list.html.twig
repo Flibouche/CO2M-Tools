@@ -1,0 +1,22 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Date Début</th>
+            <th>Date Fin</th>
+            <th>Tarification</th>
+            <th>Tarif</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contrat in field.value %}
+        <tr>
+            <td>{{ contrat.id }}</td>
+            <td>{{ facture.dateDebut|date('d/m/Y') }}</td>
+            <td>{{ facture.dateFin|date('d/m/Y') }}</td>
+            <td>{{ contrat.tarification }}</td>
+            <td>{{ contrat.tarif }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
