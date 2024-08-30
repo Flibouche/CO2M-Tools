@@ -48,7 +48,10 @@ class FactureCrudController extends AbstractCrudController
         $commonFields = [
             IdField::new('id')->hideOnForm(),
             AssociationField::new('client'),
-            DateField::new('dateFacturation', 'Date de facturation'),
+            DateField::new('dateFacturation', 'Date de facturation')
+                ->setRequired(false)
+                ->setFormTypeOption('html5', false)
+                ->setFormTypeOption('widget', 'single_text'),
             BooleanField::new('genere', 'Généré'),
             BooleanField::new('paye', 'Payé'),
             DateField::new('dateEnvoi', 'Date d\'envoi'),

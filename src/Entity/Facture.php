@@ -53,7 +53,7 @@ class Facture
         return $this->dateFacturation;
     }
 
-    public function setDateFacturation(\DateTimeInterface $dateFacturation): static
+    public function setDateFacturation(?\DateTimeInterface $dateFacturation): static
     {
         $this->dateFacturation = $dateFacturation;
 
