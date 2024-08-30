@@ -28,6 +28,9 @@ class Relance
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
+    #[ORM\ManyToOne(inversedBy: 'relances')]
+    private ?Mail $mail = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -82,6 +85,18 @@ class Relance
     public function setMessage(string $message): static
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getMail(): ?Mail
+    {
+        return $this->mail;
+    }
+
+    public function setMail(?Mail $mail): static
+    {
+        $this->mail = $mail;
 
         return $this;
     }

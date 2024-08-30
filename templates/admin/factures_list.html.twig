@@ -7,6 +7,7 @@
             <th>Généré</th>
             <th>Payé</th>
             <th>Date Envoi</th>
+            <th>Relancer par email</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,11 @@
             <td>{{ facture.genere ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>'}}</td>
             <td>{{ facture.paye ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>'}}</td>
             <td>{{ facture.dateEnvoi|date('d/m/Y') }}</td>
+            {% if facture.paye == false %}
+            <td><a href="#"><i class="fa-solid fa-file-invoice-dollar"></i> Effectuer une relance</a></td>
+            {% else %}
+            <td></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </tbody>
