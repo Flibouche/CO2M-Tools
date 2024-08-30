@@ -42,12 +42,15 @@ class ContratCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $context = $this->adminContextProvider->getContext();
+        $contrat = $context ? $context->getEntity()->getInstance() : null;
+
         $commonFields = [
             IdField::new('id')->hideOnForm(),
             AssociationField::new('client'),
-            DateField::new('dateDebut'),
-            DateField::new('dateFin'),
-            ChoiceField::new('tarification'),
+            DateField::new('dateDebut', 'Date de début'),
+            DateField::new('dateFin', 'Date de fin'),
+            ChoiceField::new('tarification', 'Type de tarification'),
             MoneyField::new('tarif')->setCurrency('EUR')->setStoredAsCents(false),
         ];
 

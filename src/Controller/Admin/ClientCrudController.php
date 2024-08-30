@@ -49,23 +49,22 @@ class ClientCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $context = $this->adminContextProvider->getContext();
+        $client = $context ? $context->getEntity()->getInstance() : null;
 
         $commonFields = [
             IdField::new('id')->hideOnForm(),
             TextField::new('nom'),
-            TextField::new('prenom'),
+            TextField::new('prenom', 'Prénom'),
             EmailField::new('mail'),
-            TextField::new('siret'),
-            TextField::new('societe'),
-            TelephoneField::new('telephone'),
+            TextField::new('siret', 'N° de SIRET'),
+            TextField::new('societe', 'Société'),
+            TelephoneField::new('telephone', 'Téléphone'),
             CollectionField::new('factures')->onlyOnIndex(),
             CollectionField::new('contrats')->onlyOnIndex(),
         ];
 
         if ($pageName === Crud::PAGE_DETAIL) {
-            $context = $this->adminContextProvider->getContext();
-            $client = $context ? $context->getEntity()->getInstance() : null;
-
             if ($client && $client->getFactures()->count() > 0) {
                 $commonFields[] = CollectionField::new('factures')
                     ->setEntryIsComplex(true)
