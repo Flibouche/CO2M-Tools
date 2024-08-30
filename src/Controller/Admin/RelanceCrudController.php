@@ -32,9 +32,21 @@ class RelanceCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            AssociationField::new('facture'),
+            AssociationField::new('facture')
+                ->setFormTypeOption('choice_label', function ($facture) {
+                    $dateEnvoi = $facture->getDateEnvoi();
+                    $formattedDate = $dateEnvoi ? $dateEnvoi->format('d/m/Y') : 'Date non définie';
+                    return sprintf(
+                        'Facture #%d - Client: %s - Envoyée le: %s',
+                        $facture->getId(),
+                        $facture->getClient(),
+                        $formattedDate
+                    );
+                }),
             DateField::new('dateRelance'),
             ChoiceField::new('typeRelance'),
+            AssociationField::new('mail')
+                ->setFormTypeOption('choice_label', 'objet'),
             TextField::new('message'),
         ];
     }
