@@ -46,6 +46,7 @@ class FactureCrudController extends AbstractCrudController
             BooleanField::new('genere'),
             BooleanField::new('paye'),
             DateField::new('dateEnvoi'),
+            CollectionField::new('relances')->onlyOnIndex(),
         ];
 
         // Si la page actuelle est la page de détail, je récupère l'instance de la facture actuellement affichée

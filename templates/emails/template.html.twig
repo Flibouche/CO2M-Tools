@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Request of Maxime METTEY - CO2M</h1>
+
+    <p>Subject : {{ mail.sujet }}</p>
+    <p>{{ mail.corps }}</p>
+    <p>Message :</p>
+    <div>
+        {{ relance.message|raw }}
+    </div>
+</body>
+
+</html>

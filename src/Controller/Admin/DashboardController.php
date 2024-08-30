@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Mail;
 use App\Entity\Client;
 use App\Entity\Contrat;
 use App\Entity\Facture;
@@ -11,9 +12,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[IsGranted('ROLE_ADMIN')]
 class DashboardController extends AbstractDashboardController
@@ -58,6 +59,12 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::subMenu('Actions', 'fas fa-bars')->setSubItems([
             MenuItem::linkToCrud('Ajouter une relance', 'fas fa-plus', Relance::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Liste des relances', 'fas fa-eye', Relance::class),
+        ]);
+
+        yield MenuItem::section('Mails');
+        yield MenuItem::subMenu('Actions', 'fas fa-bars')->setSubItems([
+            MenuItem::linkToCrud('Ajouter un template', 'fas fa-envelope', Mail::class)->setAction(Crud::PAGE_NEW),
+            MenuItem::linkToCrud('Liste des templates', 'fas fa-eye', Mail::class),
         ]);
     }
 }

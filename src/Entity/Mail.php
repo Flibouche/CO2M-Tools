@@ -19,9 +19,6 @@ class Mail
     #[ORM\Column(length: 255)]
     private ?string $sujet = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $corps = null;
-
     /**
      * @var Collection<int, Relance>
      */
@@ -46,18 +43,6 @@ class Mail
     public function setSujet(string $sujet): static
     {
         $this->sujet = $sujet;
-
-        return $this;
-    }
-
-    public function getCorps(): ?string
-    {
-        return $this->corps;
-    }
-
-    public function setCorps(string $corps): static
-    {
-        $this->corps = $corps;
 
         return $this;
     }

@@ -3,11 +3,13 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Client;
+use App\Entity\Relance;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -47,6 +49,7 @@ class ClientCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+
         $commonFields = [
             IdField::new('id')->hideOnForm(),
             TextField::new('nom'),
@@ -55,6 +58,8 @@ class ClientCrudController extends AbstractCrudController
             TextField::new('siret'),
             TextField::new('societe'),
             TelephoneField::new('telephone'),
+            CollectionField::new('factures')->onlyOnIndex(),
+            CollectionField::new('contrats')->onlyOnIndex(),
         ];
 
         if ($pageName === Crud::PAGE_DETAIL) {
@@ -76,6 +81,14 @@ class ClientCrudController extends AbstractCrudController
                     ->setLabel('Contrats')
                     ->setTemplatePath('admin/contrats_list.html.twig');
             }
+
+            // if ($client->getFactures()->exists(fn($key, $facture) => $facture->getRelances()->count() > 0)) {
+            //     $commonFields[] = CollectionField::new('factures')
+            //         ->setLabel('Relances')
+            //         ->setEntryType(Relance::class)
+            //         ->onlyOnDetail()
+            //         ->setTemplatePath('admin/relances_list.html.twig');
+            // }
         }
 
         return $commonFields;
