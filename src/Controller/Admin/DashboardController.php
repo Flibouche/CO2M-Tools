@@ -57,7 +57,6 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Relances');
         yield MenuItem::subMenu('Actions', 'fas fa-bars')->setSubItems([
-            // MenuItem::linkToCrud('Ajouter une relance', 'fas fa-plus', Relance::class)->setAction(Crud::PAGE_NEW),
             MenuItem::linkToCrud('Liste des relances', 'fas fa-eye', Relance::class),
         ]);
 

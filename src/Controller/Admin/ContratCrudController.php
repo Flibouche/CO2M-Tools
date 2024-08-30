@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Contrat;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
@@ -13,9 +14,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 
 #[IsGranted('ROLE_ADMIN')]
 class ContratCrudController extends AbstractCrudController
@@ -55,5 +56,11 @@ class ContratCrudController extends AbstractCrudController
         ];
 
         return $commonFields;
+    }
+
+    public function configureAssets(Assets $assets): Assets
+    {
+        return parent::configureAssets($assets)
+            ->addCssFile('styles/app.css');
     }
 }
