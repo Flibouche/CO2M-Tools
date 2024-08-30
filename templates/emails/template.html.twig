@@ -8,7 +8,8 @@
 <body>
     <h1>Request of Maxime METTEY - CO2M</h1>
 
-    <p>Subject : {{ mail.objet }}</p>
+    <p>Objet : {{ relance.mail.objet }}{{ relance.facture.id }}</p>
+    <p>{{ relance.mail.message }}</p>
 </body>
 
 </html>
