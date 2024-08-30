@@ -17,13 +17,16 @@ class Mail
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $sujet = null;
+    private ?string $objet = null;
 
     /**
      * @var Collection<int, Relance>
      */
     #[ORM\OneToMany(targetEntity: Relance::class, mappedBy: 'mail')]
     private Collection $relances;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $message = null;
 
     public function __construct()
     {
@@ -35,14 +38,14 @@ class Mail
         return $this->id;
     }
 
-    public function getSujet(): ?string
+    public function getObjet(): ?string
     {
-        return $this->sujet;
+        return $this->objet;
     }
 
-    public function setSujet(string $sujet): static
+    public function setObjet(string $objet): static
     {
-        $this->sujet = $sujet;
+        $this->objet = $objet;
 
         return $this;
     }
@@ -73,6 +76,18 @@ class Mail
                 $relance->setMail(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMessage(): ?string
+    {
+        return $this->message;
+    }
+
+    public function setMessage(string $message): static
+    {
+        $this->message = $message;
 
         return $this;
     }
