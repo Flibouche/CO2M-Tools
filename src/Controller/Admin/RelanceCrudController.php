@@ -2,11 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Facture;
 use App\Entity\Relance;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\MailerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use Symfony\Component\HttpFoundation\RequestStack;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -14,17 +18,19 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mailer\MailerInterface;
 
 #[IsGranted('ROLE_ADMIN')]
 class RelanceCrudController extends AbstractCrudController
 {
     protected $mailer;
+    private $entityManager;
+    private $requestStack;
 
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer, EntityManagerInterface $entityManager, RequestStack $requestStack)
     {
         $this->mailer = $mailer;
+        $this->entityManager = $entityManager;
+        $this->requestStack = $requestStack;
     }
 
     public static function getEntityFqcn(): string
@@ -35,7 +41,25 @@ class RelanceCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->remove(Crud::PAGE_INDEX, Action::NEW);
+    }
+
+    public function createEntity(string $entityFqcn)
+    {
+        $relance = new Relance();
+        $request = $this->requestStack->getCurrentRequest();
+
+        $factureId = $request->query->get('factureId');
+
+        if ($factureId) {
+            $facture = $this->entityManager->getRepository(Facture::class)->find($factureId);
+            if ($facture) {
+                $relance->setFacture($facture);
+            }
+        }
+
+        return $relance;
     }
 
     public function configureFields(string $pageName): iterable
@@ -53,6 +77,7 @@ class RelanceCrudController extends AbstractCrudController
                         $formattedDate
                     );
                 }),
+                // ->setFormTypeOption('disabled', true),
             DateField::new('dateRelance'),
             ChoiceField::new('typeRelance'),
             AssociationField::new('mail')

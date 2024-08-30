@@ -13,6 +13,7 @@
     <tbody>
         {% for facture in field.value %}
         {% set url = ea_url().setController('App\\Controller\\Admin\\FactureCrudController').setAction('detail').setEntityId(facture.id) %}
+        {% set urlAddRelance = ea_url().setController('App\\Controller\\Admin\\RelanceCrudController').setAction('new').set('factureId', facture.id) %}
         <tr data-href="{{ url }}">
             <td>{{ facture.id }}</td>
             <td>{{ facture.dateFacturation|date('d/m/Y') }}</td>
@@ -20,7 +21,7 @@
             <td>{{ facture.paye ? '<i class="fa-solid fa-check"></i>' : '<i class="fa-solid fa-xmark"></i>'}}</td>
             <td>{{ facture.dateEnvoi|date('d/m/Y') }}</td>
             {% if facture.paye == false %}
-            <td><a href="#"><i class="fa-solid fa-file-invoice-dollar"></i> Effectuer une relance</a></td>
+            <td><a href="{{ urlAddRelance }}"><i class="fa-solid fa-file-invoice-dollar"></i> Effectuer une relance</a></td>
             {% else %}
             <td></td>
             {% endif %}

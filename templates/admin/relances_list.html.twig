@@ -6,7 +6,7 @@
             <th>Date</th>
             <th>Type Relance</th>
             <th>Message</th>
-            <th>Mail ID</th>
+            <th>Objet du mail</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
             <td>{{ relance.typeRelance.value }}</td>
             <td>{{ relance.message }}</td>
             {% if relance.typeRelance.value == 'Mail' %}
-            <td>{{ relance.mail }}</td>
+            <td>{{ relance.mail.objet }}</td>
             {% else %}
             <td><i class="fa-solid fa-xmark"></i></td>
             {% endif %}
