@@ -88,7 +88,8 @@ class RelanceCrudController extends AbstractCrudController
             DateField::new('dateRelance', 'Date de relance'),
             ChoiceField::new('typeRelance', 'Type de relance'),
             AssociationField::new('mail')
-                ->setFormTypeOption('choice_label', 'objet'),
+                ->setFormTypeOption('choice_label', 'objet')
+                ->setFormTypeOption('attr', ['data-mail-message' => '1']),
             TextEditorField::new('message')
                 ->setTemplatePath('admin/fields/text_editor.html.twig'),
         ];
@@ -120,6 +121,7 @@ class RelanceCrudController extends AbstractCrudController
     public function configureAssets(Assets $assets): Assets
     {
         return parent::configureAssets($assets)
-            ->addCssFile('styles/app.css');
+            ->addCssFile('styles/app.css')
+            ->addJsFile('js/relance.js');
     }
 }
