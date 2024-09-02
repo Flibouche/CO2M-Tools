@@ -89,7 +89,8 @@ class RelanceCrudController extends AbstractCrudController
             ChoiceField::new('typeRelance', 'Type de relance'),
             AssociationField::new('mail')
                 ->setFormTypeOption('choice_label', 'objet'),
-            TextEditorField::new('message'),
+            TextEditorField::new('message')
+                ->setTemplatePath('admin/fields/text_editor.html.twig'),
         ];
     }
 

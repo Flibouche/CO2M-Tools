@@ -19,9 +19,10 @@ class MailCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             TextField::new('objet'),
-            TextEditorField::new('message'),
+            TextEditorField::new('message')
+                ->setTemplatePath('admin/fields/text_editor.html.twig'),
         ];
     }
 
