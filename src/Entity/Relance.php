@@ -31,6 +31,12 @@ class Relance
     #[ORM\ManyToOne(inversedBy: 'relances')]
     private ?Mail $mail = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $clientMail = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $objet = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -97,6 +103,30 @@ class Relance
     public function setMail(?Mail $mail): static
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getClientMail(): ?string
+    {
+        return $this->clientMail;
+    }
+
+    public function setClientMail(?string $clientMail): static
+    {
+        $this->clientMail = $clientMail;
+
+        return $this;
+    }
+
+    public function getObjet(): ?string
+    {
+        return $this->objet;
+    }
+
+    public function setObjet(?string $objet): static
+    {
+        $this->objet = $objet;
 
         return $this;
     }
