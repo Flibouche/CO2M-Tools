@@ -14,6 +14,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use Symfony\Component\HttpFoundation\RequestStack;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -73,6 +75,8 @@ class RelanceCrudController extends AbstractCrudController
 
         return [
             IdField::new('id')->hideOnForm(),
+            EmailField::new('clientMail', 'Mail du client')
+                ->setFormTypeOption('disabled', false),
             AssociationField::new('facture', 'Facture n°')
                 ->setFormTypeOption('choice_label', function ($facture) {
                     $dateEnvoi = $facture->getDateEnvoi();
@@ -87,9 +91,10 @@ class RelanceCrudController extends AbstractCrudController
                 ->setFormTypeOption('disabled', true),
             DateField::new('dateRelance', 'Date de relance'),
             ChoiceField::new('typeRelance', 'Type de relance'),
-            AssociationField::new('mail')
+            AssociationField::new('mail', 'Template de mail')
                 ->setFormTypeOption('choice_label', 'objet')
                 ->setFormTypeOption('attr', ['data-mail-message' => '1']),
+            TextField::new('objet'),
             TextEditorField::new('message')
                 ->setTemplatePath('admin/fields/text_editor.html.twig'),
         ];

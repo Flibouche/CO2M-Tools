@@ -4,6 +4,7 @@
         <tr>
             <th>ID</th>
             <th>Date</th>
+            <th>Mail du client</th>
             <th>Type Relance</th>
             <th>Message</th>
             <th>Objet du mail</th>
@@ -12,11 +13,20 @@
     <tbody>
         {% for relance in field.value %}
         {% set url = ea_url().setController('App\\Controller\\Admin\\RelanceCrudController').setAction('detail').setEntityId(relance.id) %}
-        <tr data-href="{{ url }}">
+        <tr data-href="{{ url }}" class="relance-row" data-message="{{ relance.message }}">
             <td>{{ relance.id }}</td>
             <td>{{ relance.dateRelance|date('d/m/Y') }}</td>
+            {% if relance.clientMail != null %}
+            <td>{{ relance.clientMail }}</td>
+            {% else %}
+            <td>Null</td>
+            {% endif %}
             <td>{{ relance.typeRelance.value }}</td>
-            <td>{{ relance.message }}</td>
+            <td>
+                <button type="button" class="btn btn-primary btn-show-message" data-message="{{ relance.message }}">
+                    Voir Message
+                </button>
+            </td>
             {% if relance.typeRelance.value == 'Mail' %}
             <td>{{ relance.mail.objet }}</td>
             {% else %}
@@ -26,6 +36,41 @@
         {% endfor %}
     </tbody>
 </table>
+
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessageContent"></p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endif %}
 
 <script src="js/tables.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-show-message').forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                // Empêche la redirection de la ligne
+                event.stopPropagation();
+
+                // Récupère le message depuis l'attribut data-message
+                const message = this.getAttribute('data-message');
+
+                // Met le message dans le contenu de la modal
+                document.getElementById('modalMessageContent').textContent = message;
+
+                const messageModal = document.getElementById('messageModal');
+                const bootstrapModal = new bootstrap.Modal(messageModal);
+                bootstrapModal.show();
+            });
+        });
+    });
+</script>
